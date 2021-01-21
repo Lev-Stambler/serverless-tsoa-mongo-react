@@ -1,0 +1,15 @@
+{
+  "entryFile": "./src/config/router.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/controllers/*.controller.ts"],
+  "spec": {
+      "outputDirectory": "./_gen/swagger",
+      "specVersion": 3,
+      "host": "localhost:3000",
+      "schemes": ["http"]
+  },
+  "routes": {
+      "routesDir": "./_gen/routes",
+      "iocModule": "./src/config/ioc"
+  }
+}
