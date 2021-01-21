@@ -1,0 +1,47 @@
+{
+  "name": "tsoa-serverless-example",
+  "version": "0.0.1",
+  "description": "An example app using tsoa and the serverless framework",
+  "scripts": {
+    "start": "npm run build && sls offline --location .webpack/service",
+    "debug": "npm run build && bash -c './debug-sls.sh offline --location .webpack/service'",
+    "deploy-dev": "npm run build && npm run fix-swagger && sls deploy -v",
+    "build": "npm run clean && npm run routes-gen && npm run lint && npm run swagger-gen ",
+    "lint": "tslint ./src/**/*.ts",
+    "clean": "rimraf _gen",
+    "swagger-gen": "tsoa spec",
+    "fix-swagger": "bash -c './scripts.sh fix-swagger'",
+    "routes-gen": "bash -c 'mkdir -p _gen/routes' && tsoa routes",
+    "tsoa": "tsoa"
+  },
+  "author": "Mike Rosack <mike@rosacksoftwaresolutions.com> (https://www.rosacksoftwaresolutions.com)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "inversify": "^5.0.1",
+    "inversify-binding-decorators": "^4.0.0",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.19",
+    "tsoa": "^3.2.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/hapi": "^18.0.3",
+    "@types/node": "^14.0.14",
+    "@types/winston": "^2.4.4",
+    "json-loader": "^0.5.7",
+    "rimraf": "^3.0.2",
+    "serverless-offline": "^6.4.0",
+    "serverless-webpack": "5.3.2",
+    "ts-loader": "^7.0.5",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.6",
+    "webpack": "^4.43.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrosack/tsoa-serverless-example.git"
+  }
+}
