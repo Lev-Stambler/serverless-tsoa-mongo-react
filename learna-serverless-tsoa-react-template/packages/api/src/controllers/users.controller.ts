@@ -1,5 +1,5 @@
 import {Route, Get, Post, Delete, Patch, Example, Body, Controller} from 'tsoa';
-import {inject, provideSingleton} from '../ioc';
+import {inject, provideSingleton} from '../config/ioc';
 import {User, UserCreateRequest, UserUpdateRequest} from '../models/User';
 import {UsersService} from '../services/usersService';
 

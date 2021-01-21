@@ -1,26 +1,18 @@
-import { provideSingleton } from "../ioc";
-import { Company } from "../models/Company";
-import { User } from "../models/User";
+import { provideSingleton } from '../config/ioc';
+import { UserProps } from '../models/mongo/User';
 
 @provideSingleton(CompaniesService)
 export class CompaniesService {
-  public async get(id: number): Promise<Company> {
-    return {
-      id,
-      name: "test",
-    };
-  }
-
-  public async getUsers(id: number): Promise<User[]> {
+  public async getUsers(id: number): Promise<UserProps[]> {
     return [
       {
         createdAt: new Date(),
-        email: "test@test.com",
+        email: 'test@test.com',
         id: 1,
       },
       {
         createdAt: new Date(),
-        email: "test2@test2.com",
+        email: 'test2@test2.com',
         id: 2,
       },
     ];

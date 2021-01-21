@@ -1,5 +1,5 @@
 {
-  "entryFile": "./src/router.ts",
+  "entryFile": "./src/config/router.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
   "controllerPathGlobs": ["src/controllers/*.controller.ts"],
   "spec": {
@@ -10,6 +10,6 @@
   },
   "routes": {
       "routesDir": "./_gen/routes",
-      "iocModule": "./src/ioc"
+      "iocModule": "./src/config/ioc"
   }
 }

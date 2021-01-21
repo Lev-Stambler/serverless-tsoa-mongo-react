@@ -1,4 +1,4 @@
-import {provideSingleton} from '../ioc';
+import {provideSingleton} from '../config/ioc';
 import {User, UserCreateRequest, UserUpdateRequest} from '../models/User';
 
 @provideSingleton(UsersService)

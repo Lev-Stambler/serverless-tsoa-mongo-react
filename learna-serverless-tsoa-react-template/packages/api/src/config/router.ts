@@ -1,15 +1,7 @@
 import { Router } from 'express';
-import { RegisterRoutes } from '../_gen/routes/routes';
-import { ErrorResponse, HttpRequest, HttpResponse, HttpResponseError, LambdaProxyEvent, LambdaProxyCallback } from './framework';
-import * as winston from 'winston';
-
-winston.configure({
-  exitOnError: false,
-  handleExceptions: true,
-  transports: [
-    new winston.transports.Console()
-  ]
-});
+import { RegisterRoutes } from '../../_gen/routes/routes';
+import { ErrorResponse, HttpRequest, HttpResponse, HttpResponseError, LambdaProxyEvent, LambdaProxyCallback } from '../framework';
+import { Logger } from './logger';
 
 const router = Router();
 
@@ -22,7 +14,7 @@ type middlewareExec = ((request: HttpRequest, response: HttpResponse, next: any)
 function methodHandler(method: string) {
   return function (route: string, ...routeExecs: middlewareExec[]) {
     router[method](route, (req, res) => {
-      winston.info(`Found route ${route}`);
+      Logger.info(`Found route ${route}`);
 
       const runNext = (runExecs: middlewareExec[]) => {
         const curExec: middlewareExec = runExecs[0];
@@ -34,7 +26,7 @@ function methodHandler(method: string) {
               return;
             }
 
-            winston.error(`Unhandled Exception: ${JSON.stringify(err.stack || err)}`);
+            Logger.error(`Unhandled Exception: ${JSON.stringify(err.stack || err)}`);
 
 
             res.status(500).json(new ErrorResponse('There was an error procesing your request.'));
@@ -60,7 +52,7 @@ const mockApp = {
 RegisterRoutes(mockApp as any);
 
 export function handler(event: LambdaProxyEvent, context, callback: LambdaProxyCallback) {
-  winston.info(`handling ${event.httpMethod} ${event.path}`);
+  Logger.info(`handling ${event.httpMethod} ${event.path}`);
 
   const response = new HttpResponse(callback);
 
@@ -68,7 +60,7 @@ export function handler(event: LambdaProxyEvent, context, callback: LambdaProxyC
     response.status(200).end();
   } else {
     (router as any).handle(new HttpRequest(event), response, err => {
-      winston.info(`404 for ${event.httpMethod} ${event.path}`);
+      Logger.info(`404 for ${event.httpMethod} ${event.path}`);
       response.status(404).json(new ErrorResponse('Not Found'));
     });
   }

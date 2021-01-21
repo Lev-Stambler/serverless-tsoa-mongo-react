@@ -1,10 +1,10 @@
-import { Company } from "../models/Company";
-import { CompaniesService } from "../services/companiesService";
-import { inject, provideSingleton } from "../ioc";
-import { Route, Get, Controller } from "tsoa";
-import { User } from "../models/User";
+import { CompaniesService } from '../services/companiesService';
+import { inject, provideSingleton } from '../config/ioc';
+import { Route, Get, Controller } from 'tsoa';
+import { User } from '../models/User';
+import { UserProps } from '../models/mongo/User';
 
-@Route("Companies")
+@Route('Companies')
 @provideSingleton(CompaniesController)
 export class CompaniesController extends Controller {
   constructor(
@@ -13,15 +13,9 @@ export class CompaniesController extends Controller {
     super();
   }
 
-  /** Get the current account */
-  @Get("Current")
-  public async current(): Promise<Company> {
-    return await this.companiesService.get(600);
-  }
-
   /** Get a list of users for the account */
-  @Get("Users")
-  public async getUsers(): Promise<User[]> {
+  @Get('Users')
+  public async getUsers(): Promise<UserProps[]> {
     return await this.companiesService.getUsers(600);
   }
 }

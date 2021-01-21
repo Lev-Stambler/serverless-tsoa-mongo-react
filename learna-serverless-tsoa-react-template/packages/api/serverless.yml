@@ -62,7 +62,7 @@ custom:
 
 functions:
   router:
-    handler: src/router.handler
+    handler: src/config/router.handler
     events:
       - http:
           path: "{proxy+}"
